@@ -53,8 +53,13 @@ export function extractAvailableSizes(
   }
 
   const targetSizeCodes = [SIZE_CODES.XS, SIZE_CODES.S, SIZE_CODES.M];
+  const excludedSizeCodes = ["INS030", "INS031", "MSC027", "SIZ999", "SSE420"];
 
   for (const l2 of stockData.l2s) {
+    if (excludedSizeCodes.includes(l2.size.code)) {
+      continue;
+    }
+
     if (targetSizeCodes.includes(l2.size.code)) {
       const stock = stockData.stocks[l2.l2Id];
 
