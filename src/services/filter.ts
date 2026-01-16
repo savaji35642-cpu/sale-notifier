@@ -79,6 +79,62 @@ export function extractAvailableSizes(
   return availableSizes;
 }
 
+async function processBatch(
+  products: Product[],
+  threshold: number,
+  storeId: string,
+  fetchStockFn: (
+    productId: string,
+    priceGroup: string,
+    storeId: string
+  ) => Promise<any>
+): Promise<FilteredProduct[]> {
+  const results = await Promise.allSettled(
+    products.map(async (product) => {
+      if (!meetsDiscountThreshold(product, threshold)) {
+        return null;
+      }
+
+      try {
+        const stockData = await fetchStockFn(
+          product.productId,
+          product.priceGroup,
+          storeId
+        );
+        const availableSizes = extractAvailableSizes(product, stockData.result);
+
+        if (availableSizes.length === 0) {
+          return null;
+        }
+
+        const discount = calculateDiscount(
+          product.prices.base.value,
+          product.prices.promo.value
+        );
+
+        return {
+          product,
+          availableSizes,
+          discountPercentage: discount,
+        };
+      } catch (error) {
+        console.warn(
+          `Failed to fetch stock for product ${product.productId}:`,
+          error instanceof Error ? error.message : "Unknown error"
+        );
+        return null;
+      }
+    })
+  );
+
+  return results
+    .filter(
+      (result): result is PromiseFulfilledResult<FilteredProduct | null> =>
+        result.status === "fulfilled" && result.value !== null
+    )
+    .map((result) => result.value as FilteredProduct);
+}
+
 export async function filterProducts(
   products: Product[],
   threshold: number,
@@ -90,53 +146,31 @@ export async function filterProducts(
   ) => Promise<any>
 ): Promise<FilteredProduct[]> {
   const filtered: FilteredProduct[] = [];
+  const BATCH_SIZE = 10;
 
-  console.log(`Checking stock for ${products.length} products...`);
+  console.log(
+    `Checking stock for ${products.length} products in parallel batches of ${BATCH_SIZE}...`
+  );
 
-  for (let i = 0; i < products.length; i++) {
-    const product = products[i];
+  for (let i = 0; i < products.length; i += BATCH_SIZE) {
+    const batch = products.slice(i, i + BATCH_SIZE);
+    const batchResults = await processBatch(
+      batch,
+      threshold,
+      storeId,
+      fetchStockFn
+    );
 
-    if (!meetsDiscountThreshold(product, threshold)) {
-      continue;
-    }
+    filtered.push(...batchResults);
 
-    try {
-      const stockData = await fetchStockFn(
-        product.productId,
-        product.priceGroup,
-        storeId
-      );
-      const availableSizes = extractAvailableSizes(product, stockData.result);
+    console.log(
+      `Processed ${Math.min(i + BATCH_SIZE, products.length)}/${
+        products.length
+      } products, found ${filtered.length} qualifying`
+    );
 
-      if (availableSizes.length === 0) {
-        continue;
-      }
-
-      const discount = calculateDiscount(
-        product.prices.base.value,
-        product.prices.promo.value
-      );
-
-      filtered.push({
-        product,
-        availableSizes,
-        discountPercentage: discount,
-      });
-
-      if ((i + 1) % 10 === 0) {
-        console.log(
-          `Checked ${i + 1}/${products.length} products, found ${
-            filtered.length
-          } with stock`
-        );
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, 500));
-    } catch (error) {
-      console.warn(
-        `Failed to fetch stock for product ${product.productId}:`,
-        error instanceof Error ? error.message : "Unknown error"
-      );
+    if (i + BATCH_SIZE < products.length) {
+      await new Promise((resolve) => setTimeout(resolve, 200));
     }
   }
 

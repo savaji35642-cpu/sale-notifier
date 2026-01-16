@@ -15,16 +15,18 @@ async function main() {
     console.log(`Store IDs: ${config.storeIds.join(", ")}`);
     console.log(`Gender ID: ${config.genderId}`);
 
-    console.log("\n--- Fetching Products from All Stores ---");
-    const allProducts = [];
-    for (const storeId of config.storeIds) {
-      console.log(`Fetching from store ${storeId}...`);
+    console.log("\n--- Fetching Products from All Stores (in parallel) ---");
+    const fetchPromises = config.storeIds.map(async (storeId) => {
+      console.log(`Starting fetch from store ${storeId}...`);
       const storeProducts = await fetchAllProducts(storeId, config.genderId);
       console.log(
         `  Fetched ${storeProducts.length} products from store ${storeId}`
       );
-      allProducts.push(...storeProducts);
-    }
+      return storeProducts;
+    });
+
+    const storeResults = await Promise.all(fetchPromises);
+    const allProducts = storeResults.flat();
     console.log(
       `Total products fetched from all stores: ${allProducts.length}`
     );
