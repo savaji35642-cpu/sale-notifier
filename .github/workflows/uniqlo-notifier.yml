@@ -2,7 +2,7 @@ name: Uniqlo Sale Notifier
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '0 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -31,6 +31,6 @@ jobs:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
-          STORE_ID: '120126'
+          STORE_IDS: '120126,107303,115747,113150'
           GENDER_ID: '37609'
         run: npm start
