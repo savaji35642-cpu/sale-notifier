@@ -12,18 +12,40 @@ async function main() {
     const config = loadConfig();
     console.log("Configuration loaded successfully");
     console.log(`Discount threshold: ${config.discountThreshold}%`);
-    console.log(`Store ID: ${config.storeId}`);
+    console.log(`Store IDs: ${config.storeIds.join(", ")}`);
     console.log(`Gender ID: ${config.genderId}`);
 
-    console.log("\n--- Fetching Products ---");
-    const products = await fetchAllProducts(config.storeId, config.genderId);
-    console.log(`Total products fetched: ${products.length}`);
+    console.log("\n--- Fetching Products from All Stores ---");
+    const allProducts = [];
+    for (const storeId of config.storeIds) {
+      console.log(`Fetching from store ${storeId}...`);
+      const storeProducts = await fetchAllProducts(storeId, config.genderId);
+      console.log(
+        `  Fetched ${storeProducts.length} products from store ${storeId}`
+      );
+      allProducts.push(...storeProducts);
+    }
+    console.log(
+      `Total products fetched from all stores: ${allProducts.length}`
+    );
+
+    console.log("\n--- Deduplicating Products ---");
+    const uniqueProductsMap = new Map();
+    for (const product of allProducts) {
+      if (!uniqueProductsMap.has(product.productId)) {
+        uniqueProductsMap.set(product.productId, product);
+      }
+    }
+    const uniqueProducts = Array.from(uniqueProductsMap.values());
+    console.log(
+      `Unique products after deduplication: ${uniqueProducts.length}`
+    );
 
     console.log("\n--- Filtering Products with Stock Check ---");
     const qualifyingProducts = await filterProducts(
-      products,
+      uniqueProducts,
       config.discountThreshold,
-      config.storeId,
+      config.storeIds[0],
       fetchProductStock
     );
     console.log(`Products meeting criteria: ${qualifyingProducts.length}`);

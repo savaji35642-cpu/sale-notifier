@@ -131,7 +131,7 @@ export interface Config {
   gmailUser: string;
   gmailAppPassword: string;
   recipientEmail: string;
-  storeId: string;
+  storeIds: string[];
   genderId: string;
 }
 

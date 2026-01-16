@@ -88,10 +88,10 @@ This will:
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `GMAIL_USER` | Yes | - | Gmail address for sending emails |
-| `GMAIL_APP_PASSWORD` | Yes | - | Gmail app-specific password |
+| `GMAIL_APP_PASSWORD` | Yes | - | Gmail app-specific password (16 characters) |
 | `RECIPIENT_EMAIL` | Yes | - | Email address to receive notifications |
 | `DISCOUNT_THRESHOLD` | No | 70 | Minimum discount percentage (0-100) |
-| `STORE_ID` | No | 120126 | Uniqlo store ID (German store) |
+| `STORE_IDS` | No | 120126,107303,115747,113150 | Comma-separated list of Uniqlo store IDs |
 | `GENDER_ID` | No | 37609 | Gender category ID (Men's) |
 
 ### Customization
