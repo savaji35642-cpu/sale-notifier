@@ -1,10 +1,10 @@
-import nodemailer from 'nodemailer';
-import { FilteredProduct, ProductLink } from '../types/product';
-import { Config } from '../types/product';
+import nodemailer from "nodemailer";
+import { FilteredProduct, ProductLink } from "../types/product";
+import { Config } from "../types/product";
 
 export function createTransporter(config: Config) {
   return nodemailer.createTransport({
-    host: 'smtp.gmail.com',
+    host: "smtp.gmail.com",
     port: 587,
     secure: false,
     auth: {
@@ -19,7 +19,7 @@ export function generateProductLink(
   sizeCode: string
 ): string {
   const { product } = filteredProduct;
-  const baseUrl = 'https://www.uniqlo.com/de/en/products';
+  const baseUrl = "https://www.uniqlo.com/de/en/products";
   const productId = product.productId;
   const priceGroup = product.priceGroup;
   const colorCode = product.representativeColorDisplayCode;
@@ -27,7 +27,10 @@ export function generateProductLink(
   return `${baseUrl}/${productId}/${priceGroup}?colorDisplayCode=${colorCode}&sizeDisplayCode=${sizeCode}`;
 }
 
-export function buildEmailHTML(products: FilteredProduct[]): string {
+export function buildEmailHTML(
+  products: FilteredProduct[],
+  discountThreshold: number
+): string {
   const productRows = products
     .map((filteredProduct) => {
       const { product, availableSizes, discountPercentage } = filteredProduct;
@@ -40,12 +43,14 @@ export function buildEmailHTML(products: FilteredProduct[]): string {
           const url = generateProductLink(filteredProduct, size.sizeCode);
           return `<a href="${url}" style="display: inline-block; margin: 4px; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">${size.sizeName}</a>`;
         })
-        .join('');
+        .join("");
 
-      const imageUrl = product.images?.main?.[product.representativeColorDisplayCode]?.image || '';
+      const imageUrl =
+        product.images?.main?.[product.representativeColorDisplayCode]?.image ||
+        "";
       const imageTag = imageUrl
         ? `<img src="${imageUrl}" alt="${product.name}" style="max-width: 150px; height: auto; border-radius: 8px; margin-bottom: 12px;">`
-        : '';
+        : "";
 
       return `
         <tr>
@@ -65,7 +70,7 @@ export function buildEmailHTML(products: FilteredProduct[]): string {
         </tr>
       `;
     })
-    .join('');
+    .join("");
 
   return `
     <!DOCTYPE html>
@@ -83,7 +88,11 @@ export function buildEmailHTML(products: FilteredProduct[]): string {
               <tr>
                 <td style="padding: 30px; text-align: center; background-color: #e74c3c; border-radius: 8px 8px 0 0;">
                   <h1 style="margin: 0; color: white; font-size: 28px;">🔥 Uniqlo Sale Alert</h1>
-                  <p style="margin: 8px 0 0 0; color: white; font-size: 16px;">${products.length} product${products.length !== 1 ? 's' : ''} with 70%+ discount</p>
+                  <p style="margin: 8px 0 0 0; color: white; font-size: 16px;">${
+                    products.length
+                  } product${
+    products.length !== 1 ? "s" : ""
+  } with ${discountThreshold}%+ discount</p>
                 </td>
               </tr>
               ${productRows}
@@ -108,8 +117,8 @@ export async function sendNotificationEmail(
 ): Promise<void> {
   try {
     const transporter = createTransporter(config);
-    const htmlContent = buildEmailHTML(products);
-    const subject = `Uniqlo Sale Alert: ${products.length} products with 70%+ discount`;
+    const htmlContent = buildEmailHTML(products, config.discountThreshold);
+    const subject = `Uniqlo Sale Alert: ${products.length} products with ${config.discountThreshold}%+ discount`;
 
     await transporter.sendMail({
       from: config.gmailUser,
@@ -118,13 +127,16 @@ export async function sendNotificationEmail(
       html: htmlContent,
     });
 
-    console.log('Notification email sent successfully');
+    console.log("Notification email sent successfully");
   } catch (error) {
-    console.error('Failed to send notification email:', error);
+    console.error("Failed to send notification email:", error);
   }
 }
 
-export async function sendErrorEmail(error: Error, config: Config): Promise<void> {
+export async function sendErrorEmail(
+  error: Error,
+  config: Config
+): Promise<void> {
   const transporter = createTransporter(config);
   const timestamp = new Date().toISOString();
 
@@ -141,11 +153,15 @@ export async function sendErrorEmail(error: Error, config: Config): Promise<void
         <p style="color: #666; font-size: 14px;"><strong>Timestamp:</strong> ${timestamp}</p>
         <div style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0;">
           <h3 style="margin-top: 0; color: #856404;">Error Message:</h3>
-          <p style="margin: 0; color: #856404; font-family: monospace;">${error.message}</p>
+          <p style="margin: 0; color: #856404; font-family: monospace;">${
+            error.message
+          }</p>
         </div>
         <div style="background-color: #f8f9fa; padding: 15px; margin: 20px 0; border-radius: 4px;">
           <h3 style="margin-top: 0;">Stack Trace:</h3>
-          <pre style="margin: 0; font-size: 12px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;">${error.stack || 'No stack trace available'}</pre>
+          <pre style="margin: 0; font-size: 12px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;">${
+            error.stack || "No stack trace available"
+          }</pre>
         </div>
         <p style="color: #666; font-size: 14px;">The bot has stopped execution. Please investigate and resolve the issue.</p>
       </div>
@@ -160,5 +176,5 @@ export async function sendErrorEmail(error: Error, config: Config): Promise<void
     html: htmlContent,
   });
 
-  console.log('Error notification email sent');
+  console.log("Error notification email sent");
 }
