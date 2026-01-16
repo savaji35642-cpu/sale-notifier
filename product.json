@@ -1,0 +1,1523 @@
+{
+    "status": "ok",
+    "result": {
+        "l2s": [
+            {
+                "color": {
+                    "code": "COL08",
+                    "displayCode": "08"
+                },
+                "communicationCode": "480812-08-002-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA002",
+                    "displayCode": "002"
+                },
+                "l2Id": "08658794",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL08",
+                    "displayCode": "08"
+                },
+                "communicationCode": "480812-08-003-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA003",
+                    "displayCode": "003"
+                },
+                "l2Id": "08658795",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL08",
+                    "displayCode": "08"
+                },
+                "communicationCode": "480812-08-004-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA004",
+                    "displayCode": "004"
+                },
+                "l2Id": "08658796",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL08",
+                    "displayCode": "08"
+                },
+                "communicationCode": "480812-08-005-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA005",
+                    "displayCode": "005"
+                },
+                "l2Id": "08658797",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL08",
+                    "displayCode": "08"
+                },
+                "communicationCode": "480812-08-006-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA006",
+                    "displayCode": "006"
+                },
+                "l2Id": "08658798",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL08",
+                    "displayCode": "08"
+                },
+                "communicationCode": "480812-08-007-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA007",
+                    "displayCode": "007"
+                },
+                "l2Id": "08658799",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL08",
+                    "displayCode": "08"
+                },
+                "communicationCode": "480812-08-008-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA008",
+                    "displayCode": "008"
+                },
+                "l2Id": "08658800",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL09",
+                    "displayCode": "09"
+                },
+                "communicationCode": "480812-09-002-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA002",
+                    "displayCode": "002"
+                },
+                "l2Id": "08658803",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL09",
+                    "displayCode": "09"
+                },
+                "communicationCode": "480812-09-003-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA003",
+                    "displayCode": "003"
+                },
+                "l2Id": "08658804",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL09",
+                    "displayCode": "09"
+                },
+                "communicationCode": "480812-09-004-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA004",
+                    "displayCode": "004"
+                },
+                "l2Id": "08658805",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL09",
+                    "displayCode": "09"
+                },
+                "communicationCode": "480812-09-005-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA005",
+                    "displayCode": "005"
+                },
+                "l2Id": "08658806",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL09",
+                    "displayCode": "09"
+                },
+                "communicationCode": "480812-09-006-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA006",
+                    "displayCode": "006"
+                },
+                "l2Id": "08658807",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL09",
+                    "displayCode": "09"
+                },
+                "communicationCode": "480812-09-007-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA007",
+                    "displayCode": "007"
+                },
+                "l2Id": "08658808",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL09",
+                    "displayCode": "09"
+                },
+                "communicationCode": "480812-09-008-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA008",
+                    "displayCode": "008"
+                },
+                "l2Id": "08658809",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL38",
+                    "displayCode": "38"
+                },
+                "communicationCode": "480812-38-002-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA002",
+                    "displayCode": "002"
+                },
+                "l2Id": "08718749",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL38",
+                    "displayCode": "38"
+                },
+                "communicationCode": "480812-38-003-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA003",
+                    "displayCode": "003"
+                },
+                "l2Id": "08718750",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL38",
+                    "displayCode": "38"
+                },
+                "communicationCode": "480812-38-004-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA004",
+                    "displayCode": "004"
+                },
+                "l2Id": "08718751",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL38",
+                    "displayCode": "38"
+                },
+                "communicationCode": "480812-38-005-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA005",
+                    "displayCode": "005"
+                },
+                "l2Id": "08718752",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL38",
+                    "displayCode": "38"
+                },
+                "communicationCode": "480812-38-006-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA006",
+                    "displayCode": "006"
+                },
+                "l2Id": "08718753",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL38",
+                    "displayCode": "38"
+                },
+                "communicationCode": "480812-38-007-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA007",
+                    "displayCode": "007"
+                },
+                "l2Id": "08718754",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            },
+            {
+                "color": {
+                    "code": "COL38",
+                    "displayCode": "38"
+                },
+                "communicationCode": "480812-38-008-000",
+                "flags": {
+                    "priceFlags": [
+                        {
+                            "id": 12,
+                            "code": "discount",
+                            "name": "Reduced Price",
+                            "type": "price_flag",
+                            "effectiveTime": {
+                                "start": 1767142800,
+                                "end": 0
+                            },
+                            "detail": ""
+                        }
+                    ],
+                    "productFlags": []
+                },
+                "pld": {
+                    "code": "PTB000",
+                    "displayCode": "000"
+                },
+                "size": {
+                    "code": "SMA008",
+                    "displayCode": "008"
+                },
+                "l2Id": "08718755",
+                "alterations": {},
+                "sales": true,
+                "salesType": "NORMAL",
+                "searchInStoresAvailable": true
+            }
+        ],
+        "stocks": {
+            "08658794": {
+                "statusCode": "LOW_STOCK",
+                "quantity": 2,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "Low stock",
+                "isDCStock": false
+            },
+            "08658795": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "IN_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08658796": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "IN_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08658797": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08658798": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "IN_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08658799": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08658800": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08658803": {
+                "statusCode": "STOCK_OUT",
+                "quantity": 0,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": true,
+                "disableSizeChip": true,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "Out of stock",
+                "isDCStock": false
+            },
+            "08658804": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "LOW_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08658805": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "IN_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08658806": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "IN_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08658807": {
+                "statusCode": "LOW_STOCK",
+                "quantity": 6,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "LOW_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "Low stock",
+                "isDCStock": false
+            },
+            "08658808": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08658809": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08718749": {
+                "statusCode": "STOCK_OUT",
+                "quantity": 0,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": true,
+                "disableSizeChip": true,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "Out of stock",
+                "isDCStock": false
+            },
+            "08718750": {
+                "statusCode": "STOCK_OUT",
+                "quantity": 0,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": true,
+                "disableSizeChip": true,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "Out of stock",
+                "isDCStock": false
+            },
+            "08718751": {
+                "statusCode": "STOCK_OUT",
+                "quantity": 0,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": true,
+                "disableSizeChip": true,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "Out of stock",
+                "isDCStock": false
+            },
+            "08718752": {
+                "statusCode": "STOCK_OUT",
+                "quantity": 0,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": true,
+                "disableSizeChip": true,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "Out of stock",
+                "isDCStock": false
+            },
+            "08718753": {
+                "statusCode": "LOW_STOCK",
+                "quantity": 6,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "LOW_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "Low stock",
+                "isDCStock": false
+            },
+            "08718754": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            },
+            "08718755": {
+                "statusCode": "IN_STOCK",
+                "quantity": 11,
+                "transitStatus": "NO_TRANSIT",
+                "backInStock": false,
+                "disableSizeChip": false,
+                "storeStockStatus": "OUT_OF_STOCK",
+                "storePurchaseFlag": false,
+                "transitLocalized": "",
+                "statusLocalized": "In stock",
+                "isDCStock": false
+            }
+        },
+        "prices": {
+            "08658794": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658795": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658796": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658797": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658798": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658799": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658800": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658803": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658804": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658805": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658806": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658807": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658808": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08658809": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08718749": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08718750": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08718751": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08718752": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08718753": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08718754": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            },
+            "08718755": {
+                "base": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 89.9
+                },
+                "promo": {
+                    "currency": {
+                        "code": "EUR",
+                        "symbol": "€"
+                    },
+                    "value": 49.9
+                },
+                "isDualPrice": true,
+                "discountPercentage": null,
+                "lowestPriceDetails": {
+                    "canDisplayLowestPrice": true,
+                    "lowestPeriod": 30,
+                    "lowestPrice": 69.9
+                },
+                "taxPolicy": "INCLUSIVE"
+            }
+        }
+    }
+}

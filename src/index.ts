@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { loadConfig } from "./utils/config";
-import { fetchAllProducts } from "./api/uniqlo";
+import { fetchAllProducts, fetchProductStock } from "./api/uniqlo";
 import { filterProducts } from "./services/filter";
 import { sendNotificationEmail, sendErrorEmail } from "./services/email";
 
@@ -10,19 +10,21 @@ async function main() {
     console.log(`Timestamp: ${new Date().toISOString()}`);
 
     const config = loadConfig();
-    console.log(`Configuration loaded successfully`);
+    console.log("Configuration loaded successfully");
     console.log(`Discount threshold: ${config.discountThreshold}%`);
     console.log(`Store ID: ${config.storeId}`);
     console.log(`Gender ID: ${config.genderId}`);
 
     console.log("\n--- Fetching Products ---");
-    const allProducts = await fetchAllProducts(config.storeId, config.genderId);
-    console.log(`Total products fetched: ${allProducts.length}`);
+    const products = await fetchAllProducts(config.storeId, config.genderId);
+    console.log(`Total products fetched: ${products.length}`);
 
-    console.log("\n--- Filtering Products ---");
-    const qualifyingProducts = filterProducts(
-      allProducts,
-      config.discountThreshold
+    console.log("\n--- Filtering Products with Stock Check ---");
+    const qualifyingProducts = await filterProducts(
+      products,
+      config.discountThreshold,
+      config.storeId,
+      fetchProductStock
     );
     console.log(`Products meeting criteria: ${qualifyingProducts.length}`);
 

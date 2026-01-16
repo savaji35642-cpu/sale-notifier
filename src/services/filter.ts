@@ -2,15 +2,19 @@ import {
   Product,
   FilteredProduct,
   AvailableSize,
+  SIZE_CODES,
   SIZE_DISPLAY_CODES,
   SIZE_NAMES,
-} from '../types/product';
+} from "../types/product";
 
-export function calculateDiscount(basePrice: number, promoPrice: number): number {
+export function calculateDiscount(
+  basePrice: number,
+  promoPrice: number
+): number {
   if (basePrice <= 0) {
     return 0;
   }
-  
+
   if (promoPrice > basePrice) {
     return 0;
   }
@@ -19,7 +23,10 @@ export function calculateDiscount(basePrice: number, promoPrice: number): number
   return Math.round(discount * 100) / 100;
 }
 
-export function meetsDiscountThreshold(product: Product, threshold: number): boolean {
+export function meetsDiscountThreshold(
+  product: Product,
+  threshold: number
+): boolean {
   if (!product.prices || !product.prices.base || !product.prices.promo) {
     return false;
   }
@@ -35,53 +42,102 @@ export function meetsDiscountThreshold(product: Product, threshold: number): boo
   return discount >= threshold;
 }
 
-export function extractAvailableSizes(product: Product): AvailableSize[] {
+export function extractAvailableSizes(
+  product: Product,
+  stockData?: { l2s: any[]; stocks: Record<string, any> }
+): AvailableSize[] {
   const availableSizes: AvailableSize[] = [];
-  
-  const targetSizes = [
-    { code: SIZE_DISPLAY_CODES.XS, name: 'XS' },
-    { code: SIZE_DISPLAY_CODES.S, name: 'S' },
-    { code: SIZE_DISPLAY_CODES.M, name: 'M' },
-  ];
 
-  for (const size of targetSizes) {
-    availableSizes.push({
-      sizeCode: size.code,
-      sizeName: size.name,
-      displayCode: size.code,
-    });
+  if (!stockData) {
+    return availableSizes;
+  }
+
+  const targetSizeCodes = [SIZE_CODES.XS, SIZE_CODES.S, SIZE_CODES.M];
+
+  for (const l2 of stockData.l2s) {
+    if (targetSizeCodes.includes(l2.size.code)) {
+      const stock = stockData.stocks[l2.l2Id];
+
+      if (
+        stock &&
+        (stock.statusCode === "IN_STOCK" || stock.statusCode === "LOW_STOCK")
+      ) {
+        availableSizes.push({
+          sizeCode: l2.size.displayCode,
+          sizeName:
+            l2.size.code === SIZE_CODES.XS
+              ? "XS"
+              : l2.size.code === SIZE_CODES.S
+              ? "S"
+              : "M",
+          displayCode: l2.size.displayCode,
+        });
+      }
+    }
   }
 
   return availableSizes;
 }
 
-export function filterProducts(
+export async function filterProducts(
   products: Product[],
-  threshold: number
-): FilteredProduct[] {
+  threshold: number,
+  storeId: string,
+  fetchStockFn: (
+    productId: string,
+    priceGroup: string,
+    storeId: string
+  ) => Promise<any>
+): Promise<FilteredProduct[]> {
   const filtered: FilteredProduct[] = [];
 
-  for (const product of products) {
+  console.log(`Checking stock for ${products.length} products...`);
+
+  for (let i = 0; i < products.length; i++) {
+    const product = products[i];
+
     if (!meetsDiscountThreshold(product, threshold)) {
       continue;
     }
 
-    const availableSizes = extractAvailableSizes(product);
-    
-    if (availableSizes.length === 0) {
-      continue;
+    try {
+      const stockData = await fetchStockFn(
+        product.productId,
+        product.priceGroup,
+        storeId
+      );
+      const availableSizes = extractAvailableSizes(product, stockData.result);
+
+      if (availableSizes.length === 0) {
+        continue;
+      }
+
+      const discount = calculateDiscount(
+        product.prices.base.value,
+        product.prices.promo.value
+      );
+
+      filtered.push({
+        product,
+        availableSizes,
+        discountPercentage: discount,
+      });
+
+      if ((i + 1) % 10 === 0) {
+        console.log(
+          `Checked ${i + 1}/${products.length} products, found ${
+            filtered.length
+          } with stock`
+        );
+      }
+
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    } catch (error) {
+      console.warn(
+        `Failed to fetch stock for product ${product.productId}:`,
+        error instanceof Error ? error.message : "Unknown error"
+      );
     }
-
-    const discountPercentage = calculateDiscount(
-      product.prices.base.value,
-      product.prices.promo.value
-    );
-
-    filtered.push({
-      product,
-      availableSizes,
-      discountPercentage,
-    });
   }
 
   return filtered;
