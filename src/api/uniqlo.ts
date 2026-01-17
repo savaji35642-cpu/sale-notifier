@@ -7,7 +7,7 @@ import {
 } from "../types/product";
 
 const BASE_URL = "https://www.uniqlo.com/de/api/commerce/v5/en/products";
-const REQUEST_DELAY_MS = 1500;
+const REQUEST_DELAY_MS = 800;
 const REQUEST_TIMEOUT_MS = 30000;
 const STOCK_CHECK_DELAY_MS = 500;
 
@@ -19,7 +19,7 @@ export async function fetchProductPage(
   offset: number,
   limit: number,
   storeId: string,
-  genderId: string
+  genderId: string,
 ): Promise<ApiResponse> {
   const params = new URLSearchParams({
     path: `${genderId},,,`,
@@ -56,7 +56,7 @@ export async function fetchProductPage(
       const axiosError = error as AxiosError;
       if (axiosError.response) {
         throw new Error(
-          `API request failed with status ${axiosError.response.status}: ${axiosError.response.statusText}`
+          `API request failed with status ${axiosError.response.status}: ${axiosError.response.statusText}`,
         );
       } else if (axiosError.request) {
         throw new Error("API request failed: No response received from server");
@@ -71,7 +71,7 @@ export async function fetchProductPage(
 export async function fetchProductStock(
   productId: string,
   priceGroup: string,
-  storeId: string
+  storeId: string,
 ): Promise<StockApiResponse> {
   const url = `${BASE_URL}/${productId}/price-groups/${priceGroup}/l2s?withPrices=true&withStocks=true&storeId=${storeId}&includePreviousPrice=false&httpFailure=true`;
 
@@ -88,7 +88,7 @@ export async function fetchProductStock(
 
     if (response.data.status !== "ok") {
       throw new Error(
-        `Stock API returned non-ok status: ${response.data.status}`
+        `Stock API returned non-ok status: ${response.data.status}`,
       );
     }
 
@@ -98,11 +98,11 @@ export async function fetchProductStock(
       const axiosError = error as AxiosError;
       if (axiosError.response) {
         throw new Error(
-          `Stock API request failed with status ${axiosError.response.status}: ${axiosError.response.statusText}`
+          `Stock API request failed with status ${axiosError.response.status}: ${axiosError.response.statusText}`,
         );
       } else if (axiosError.request) {
         throw new Error(
-          "Stock API request failed: No response received from server"
+          "Stock API request failed: No response received from server",
         );
       } else {
         throw new Error(`Stock API request failed: ${axiosError.message}`);
@@ -114,7 +114,7 @@ export async function fetchProductStock(
 
 export async function fetchAllProducts(
   storeId: string,
-  genderId: string
+  genderId: string,
 ): Promise<Product[]> {
   const allProducts: Product[] = [];
   let offset = 0;
@@ -132,7 +132,7 @@ export async function fetchAllProducts(
     if (items && items.length > 0) {
       allProducts.push(...items);
       console.log(
-        `Fetched ${items.length} products (total: ${allProducts.length})`
+        `Fetched ${items.length} products (total: ${allProducts.length})`,
       );
     }
 

@@ -9,7 +9,7 @@ import {
 
 export function calculateDiscount(
   basePrice: number,
-  promoPrice: number
+  promoPrice: number,
 ): number {
   if (basePrice <= 0) {
     return 0;
@@ -25,7 +25,7 @@ export function calculateDiscount(
 
 export function meetsDiscountThreshold(
   product: Product,
-  threshold: number
+  threshold: number,
 ): boolean {
   if (!product.prices || !product.prices.base || !product.prices.promo) {
     return false;
@@ -44,7 +44,7 @@ export function meetsDiscountThreshold(
 
 export function extractAvailableSizes(
   product: Product,
-  stockData?: { l2s: any[]; stocks: Record<string, any> }
+  stockData?: { l2s: any[]; stocks: Record<string, any> },
 ): AvailableSize[] {
   const availableSizes: AvailableSize[] = [];
 
@@ -99,8 +99,8 @@ async function processBatch(
   fetchStockFn: (
     productId: string,
     priceGroup: string,
-    storeId: string
-  ) => Promise<any>
+    storeId: string,
+  ) => Promise<any>,
 ): Promise<FilteredProduct[]> {
   const results = await Promise.allSettled(
     products.map(async (product) => {
@@ -112,7 +112,7 @@ async function processBatch(
         const stockData = await fetchStockFn(
           product.productId,
           product.priceGroup,
-          storeId
+          storeId,
         );
         const availableSizes = extractAvailableSizes(product, stockData.result);
 
@@ -122,7 +122,7 @@ async function processBatch(
 
         const discount = calculateDiscount(
           product.prices.base.value,
-          product.prices.promo.value
+          product.prices.promo.value,
         );
 
         return {
@@ -133,17 +133,17 @@ async function processBatch(
       } catch (error) {
         console.warn(
           `Failed to fetch stock for product ${product.productId}:`,
-          error instanceof Error ? error.message : "Unknown error"
+          error instanceof Error ? error.message : "Unknown error",
         );
         return null;
       }
-    })
+    }),
   );
 
   return results
     .filter(
       (result): result is PromiseFulfilledResult<FilteredProduct | null> =>
-        result.status === "fulfilled" && result.value !== null
+        result.status === "fulfilled" && result.value !== null,
     )
     .map((result) => result.value as FilteredProduct);
 }
@@ -155,14 +155,14 @@ export async function filterProducts(
   fetchStockFn: (
     productId: string,
     priceGroup: string,
-    storeId: string
-  ) => Promise<any>
+    storeId: string,
+  ) => Promise<any>,
 ): Promise<FilteredProduct[]> {
   const filtered: FilteredProduct[] = [];
-  const BATCH_SIZE = 10;
+  const BATCH_SIZE = 15;
 
   console.log(
-    `Checking stock for ${products.length} products in parallel batches of ${BATCH_SIZE}...`
+    `Checking stock for ${products.length} products in parallel batches of ${BATCH_SIZE}...`,
   );
 
   for (let i = 0; i < products.length; i += BATCH_SIZE) {
@@ -171,7 +171,7 @@ export async function filterProducts(
       batch,
       threshold,
       storeId,
-      fetchStockFn
+      fetchStockFn,
     );
 
     filtered.push(...batchResults);
@@ -179,12 +179,8 @@ export async function filterProducts(
     console.log(
       `Processed ${Math.min(i + BATCH_SIZE, products.length)}/${
         products.length
-      } products, found ${filtered.length} qualifying`
+      } products, found ${filtered.length} qualifying`,
     );
-
-    if (i + BATCH_SIZE < products.length) {
-      await new Promise((resolve) => setTimeout(resolve, 200));
-    }
   }
 
   return filtered;

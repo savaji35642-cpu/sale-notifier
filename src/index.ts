@@ -20,7 +20,7 @@ async function main() {
       console.log(`Starting fetch from store ${storeId}...`);
       const storeProducts = await fetchAllProducts(storeId, config.genderId);
       console.log(
-        `  Fetched ${storeProducts.length} products from store ${storeId}`
+        `  Fetched ${storeProducts.length} products from store ${storeId}`,
       );
       return storeProducts;
     });
@@ -28,7 +28,7 @@ async function main() {
     const storeResults = await Promise.all(fetchPromises);
     const allProducts = storeResults.flat();
     console.log(
-      `Total products fetched from all stores: ${allProducts.length}`
+      `Total products fetched from all stores: ${allProducts.length}`,
     );
 
     console.log("\n--- Deduplicating Products ---");
@@ -40,24 +40,41 @@ async function main() {
     }
     const uniqueProducts = Array.from(uniqueProductsMap.values());
     console.log(
-      `Unique products after deduplication: ${uniqueProducts.length}`
+      `Unique products after deduplication: ${uniqueProducts.length}`,
     );
 
-    console.log("\n--- Filtering Products with Stock Check ---");
+    console.log("\n--- Pre-filtering by Discount Threshold ---");
+    const discountQualifyingProducts = uniqueProducts.filter((product) => {
+      if (!product.prices || !product.prices.base || !product.prices.promo) {
+        return false;
+      }
+      if (!product.prices.isDualPrice) {
+        return false;
+      }
+      const basePrice = product.prices.base.value;
+      const promoPrice = product.prices.promo.value;
+      const discount = ((basePrice - promoPrice) / basePrice) * 100;
+      return discount >= config.discountThreshold;
+    });
+    console.log(
+      `Products meeting discount threshold (${config.discountThreshold}%): ${discountQualifyingProducts.length}`,
+    );
+
+    console.log("\n--- Checking Stock for Qualifying Products ---");
     const qualifyingProducts = await filterProducts(
-      uniqueProducts,
+      discountQualifyingProducts,
       config.discountThreshold,
       config.storeIds[0],
-      fetchProductStock
+      fetchProductStock,
     );
-    console.log(`Products meeting criteria: ${qualifyingProducts.length}`);
+    console.log(`Products meeting all criteria: ${qualifyingProducts.length}`);
 
     if (qualifyingProducts.length > 0) {
       console.log("\n--- Sending Notification Email ---");
       console.log("Qualifying products:");
       qualifyingProducts.forEach((fp, index) => {
         console.log(
-          `  ${index + 1}. ${fp.product.name} - ${fp.discountPercentage}% off`
+          `  ${index + 1}. ${fp.product.name} - ${fp.discountPercentage}% off`,
         );
       });
 
