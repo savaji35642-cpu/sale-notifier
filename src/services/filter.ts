@@ -5,6 +5,7 @@ import {
   SIZE_CODES,
   SIZE_DISPLAY_CODES,
   SIZE_NAMES,
+  SIZE_CODE_TO_NAME,
 } from "../types/product";
 
 export function calculateDiscount(
@@ -59,9 +60,11 @@ export function extractAvailableSizes(
       stock &&
       (stock.statusCode === "IN_STOCK" || stock.statusCode === "LOW_STOCK")
     ) {
+      const sizeName = SIZE_CODE_TO_NAME[l2.size.code] || l2.size.displayCode;
+
       availableSizes.push({
         sizeCode: l2.size.displayCode,
-        sizeName: l2.size.name || l2.size.displayCode,
+        sizeName: sizeName,
         displayCode: l2.size.displayCode,
       });
     }

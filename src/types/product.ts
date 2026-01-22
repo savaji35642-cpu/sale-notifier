@@ -147,6 +147,40 @@ export const SIZE_DISPLAY_CODES = {
   M: "004",
 } as const;
 
+export const SIZE_CODE_TO_NAME: Record<string, string> = {
+  // Standard clothing sizes (from API aggregation)
+  SMA001: "XXS",
+  SMA002: "XS",
+  SMA003: "S",
+  SMA004: "M",
+  SMA005: "L",
+  SMA006: "XL",
+  SMA007: "XXL",
+  SMA008: "3XL",
+
+  // Inch sizes (from API aggregation)
+  INS028: "28inch",
+  INS029: "29inch",
+  INS030: "30inch",
+  INS031: "31inch",
+  INS032: "32inch",
+  INS033: "33inch",
+  INS034: "34inch",
+  INS035: "35inch",
+  INS036: "36inch",
+  INS040: "40inch",
+
+  // PLD sizes (from API aggregation)
+  INA030: "30inch",
+  INA032: "32inch",
+  INA034: "34inch",
+  PTB000: "-",
+
+  // Special sizes (from API aggregation)
+  MSC027: "42-46(27-29cm)",
+  SIZ999: "One Size",
+};
+
 export const SIZE_NAMES = {
   "002": "XS",
   "003": "S",
