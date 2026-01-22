@@ -52,40 +52,18 @@ export function extractAvailableSizes(
     return availableSizes;
   }
 
-  const targetSizeCodes = [
-    SIZE_CODES.XS,
-    SIZE_CODES.S,
-    SIZE_CODES.M,
-    "INS030",
-    "INS031",
-    "MSC027",
-    "SIZ999",
-    "SSE420",
-  ];
-
   for (const l2 of stockData.l2s) {
-    if (targetSizeCodes.includes(l2.size.code)) {
-      const stock = stockData.stocks[l2.l2Id];
+    const stock = stockData.stocks[l2.l2Id];
 
-      if (
-        stock &&
-        (stock.statusCode === "IN_STOCK" || stock.statusCode === "LOW_STOCK")
-      ) {
-        const getSizeName = (sizeCode: string): string => {
-          if (sizeCode === SIZE_CODES.XS) return "XS";
-          if (sizeCode === SIZE_CODES.S) return "S";
-          if (sizeCode === SIZE_CODES.M) return "M";
-          if (sizeCode === "INS030") return "30inch";
-          if (sizeCode === "INS031") return "31inch";
-          return l2.size.displayCode;
-        };
-
-        availableSizes.push({
-          sizeCode: l2.size.displayCode,
-          sizeName: getSizeName(l2.size.code),
-          displayCode: l2.size.displayCode,
-        });
-      }
+    if (
+      stock &&
+      (stock.statusCode === "IN_STOCK" || stock.statusCode === "LOW_STOCK")
+    ) {
+      availableSizes.push({
+        sizeCode: l2.size.displayCode,
+        sizeName: l2.size.name || l2.size.displayCode,
+        displayCode: l2.size.displayCode,
+      });
     }
   }
 
