@@ -1,5 +1,5 @@
 import nodemailer from "nodemailer";
-import { FilteredProduct, ProductLink } from "../types/product";
+import { FilteredProduct, COLOR_CODE_TO_HEX } from "../types/product";
 import { Config } from "../types/product";
 
 export function createTransporter(config: Config) {
@@ -50,16 +50,9 @@ export function buildEmailHTML(
       const representativeColor = product.colors.find(
         (c) => c.displayCode === product.representativeColorDisplayCode,
       );
-      const buttonColor = representativeColor?.hexBackgroundColor || "#007bff";
+      const colorCode = representativeColor?.code || "";
+      const buttonColor = COLOR_CODE_TO_HEX[colorCode] || "#007bff";
       const textColor = isLightColor(buttonColor) ? "#000000" : "#ffffff";
-
-      console.log(`Product: ${product.name}`);
-      console.log(`  Colors array length: ${product.colors?.length || 0}`);
-      console.log(
-        `  Representative color code: ${product.representativeColorDisplayCode}`,
-      );
-      console.log(`  Found color:`, representativeColor);
-      console.log(`  Button color: ${buttonColor}`);
 
       const sizeLinks = availableSizes
         .map((size) => {

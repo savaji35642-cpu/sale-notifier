@@ -186,3 +186,60 @@ export const SIZE_NAMES = {
   "003": "S",
   "004": "M",
 } as const;
+
+export const COLOR_CODE_TO_HEX: Record<string, string> = {
+  COL00: "#ffffff", // WHITE
+  COL01: "#ffffff", // OFF WHITE
+  COL02: "#dedede", // LIGHT GREY
+  COL03: "#dedede", // GREY
+  COL04: "#dedede", // GREY
+  COL05: "#dedede", // GREY
+  COL06: "#dedede", // GREY
+  COL07: "#dedede", // GREY
+  COL08: "#dedede", // DARK GREY
+  COL09: "#3d3d3d", // BLACK
+  COL10: "#f5c0c9", // PINK
+  COL11: "#f5c0c9", // PINK
+  COL12: "#f5c0c9", // PINK
+  COL13: "#eb3417", // RED
+  COL14: "#eb3417", // RED
+  COL15: "#eb3417", // RED
+  COL16: "#eb3417", // RED
+  COL17: "#eb3417", // RED
+  COL18: "#eb3417", // WINE
+  COL19: "#eb3417", // WINE
+  COL22: "#f3a72c", // ORANGE
+  COL26: "#f3a72c", // ORANGE
+  COL27: "#f3a72c", // ORANGE
+  COL30: "#efebd4", // NATURAL
+  COL31: "#efebd4", // BEIGE
+  COL32: "#efebd4", // BEIGE
+  COL34: "#714e36", // BROWN
+  COL35: "#714e36", // BROWN
+  COL36: "#714e36", // BROWN
+  COL37: "#714e36", // BROWN
+  COL38: "#714e36", // DARK BROWN
+  COL39: "#714e36", // DARK BROWN
+  COL41: "#ffff3f", // YELLOW
+  COL51: "#387d1f", // GREEN
+  COL53: "#387d1f", // GREEN
+  COL54: "#387d1f", // GREEN
+  COL55: "#387d1f", // GREEN
+  COL56: "#387d1f", // OLIVE
+  COL57: "#387d1f", // OLIVE
+  COL58: "#387d1f", // DARK GREEN
+  COL59: "#387d1f", // DARK GREEN
+  COL62: "#0003f9", // BLUE
+  COL63: "#0003f9", // BLUE
+  COL64: "#0003f9", // BLUE
+  COL65: "#0003f9", // BLUE
+  COL66: "#0003f9", // BLUE
+  COL67: "#0003f9", // BLUE
+  COL68: "#0003f9", // BLUE
+  COL69: "#0003f9", // NAVY
+  COL71: "#741a7c", // PURPLE
+  COL72: "#741a7c", // PURPLE
+  COL73: "#741a7c", // PURPLE
+  COL78: "#741a7c", // PURPLE
+  COL79: "#741a7c", // DARK PURPLE
+};
