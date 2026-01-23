@@ -53,6 +53,14 @@ export function buildEmailHTML(
       const buttonColor = representativeColor?.hexBackgroundColor || "#007bff";
       const textColor = isLightColor(buttonColor) ? "#000000" : "#ffffff";
 
+      console.log(`Product: ${product.name}`);
+      console.log(`  Colors array length: ${product.colors?.length || 0}`);
+      console.log(
+        `  Representative color code: ${product.representativeColorDisplayCode}`,
+      );
+      console.log(`  Found color:`, representativeColor);
+      console.log(`  Button color: ${buttonColor}`);
+
       const sizeLinks = availableSizes
         .map((size) => {
           const url = generateProductLink(filteredProduct, size.sizeCode);
