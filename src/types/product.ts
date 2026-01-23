@@ -189,58 +189,69 @@ export const SIZE_NAMES = {
 } as const;
 
 export const COLOR_CODE_TO_HEX: Record<string, string> = {
-  COL00: "#ffffff", // WHITE
-  COL01: "#ffffff", // OFF WHITE
-  COL02: "#dedede", // LIGHT GREY
-  COL03: "#dedede", // GREY
-  COL04: "#dedede", // GREY
-  COL05: "#dedede", // GREY
-  COL06: "#dedede", // GREY
-  COL07: "#dedede", // GREY
-  COL08: "#dedede", // DARK GREY
-  COL09: "#3d3d3d", // BLACK
-  COL10: "#f5c0c9", // PINK
-  COL11: "#f5c0c9", // PINK
-  COL12: "#f5c0c9", // PINK
-  COL13: "#eb3417", // RED
-  COL14: "#eb3417", // RED
-  COL15: "#eb3417", // RED
-  COL16: "#eb3417", // RED
-  COL17: "#eb3417", // RED
-  COL18: "#eb3417", // WINE
-  COL19: "#eb3417", // WINE
-  COL22: "#f3a72c", // ORANGE
-  COL26: "#f3a72c", // ORANGE
-  COL27: "#f3a72c", // ORANGE
-  COL30: "#efebd4", // NATURAL
-  COL31: "#efebd4", // BEIGE
-  COL32: "#efebd4", // BEIGE
-  COL34: "#714e36", // BROWN
-  COL35: "#714e36", // BROWN
-  COL36: "#714e36", // BROWN
-  COL37: "#714e36", // BROWN
-  COL38: "#714e36", // DARK BROWN
-  COL39: "#714e36", // DARK BROWN
-  COL41: "#ffff3f", // YELLOW
-  COL51: "#387d1f", // GREEN
-  COL53: "#387d1f", // GREEN
-  COL54: "#387d1f", // GREEN
-  COL55: "#387d1f", // GREEN
-  COL56: "#387d1f", // OLIVE
-  COL57: "#387d1f", // OLIVE
-  COL58: "#387d1f", // DARK GREEN
-  COL59: "#387d1f", // DARK GREEN
-  COL62: "#0003f9", // BLUE
-  COL63: "#0003f9", // BLUE
-  COL64: "#0003f9", // BLUE
-  COL65: "#0003f9", // BLUE
-  COL66: "#0003f9", // BLUE
-  COL67: "#0003f9", // BLUE
-  COL68: "#0003f9", // BLUE
-  COL69: "#0003f9", // NAVY
-  COL71: "#741a7c", // PURPLE
-  COL72: "#741a7c", // PURPLE
-  COL73: "#741a7c", // PURPLE
-  COL78: "#741a7c", // PURPLE
-  COL79: "#741a7c", // DARK PURPLE
+  COL00: "#ffffff",
+  COL01: "#ffffff",
+  COL02: "#dedede",
+  COL03: "#dedede",
+  COL04: "#dedede",
+  COL05: "#dedede",
+  COL06: "#dedede",
+  COL07: "#dedede",
+  COL08: "#dedede",
+  COL09: "#3d3d3d",
+  COL10: "#f5c0c9",
+  COL11: "#f5c0c9",
+  COL12: "#f5c0c9",
+  COL13: "#eb3417",
+  COL14: "#eb3417",
+  COL15: "#eb3417",
+  COL16: "#eb3417",
+  COL17: "#eb3417",
+  COL18: "#eb3417",
+  COL19: "#eb3417",
+  COL22: "#f3a72c",
+  COL25: "#f3a72c",
+  COL26: "#f3a72c",
+  COL27: "#f3a72c",
+  COL29: "#f3a72c",
+  COL30: "#efebd4",
+  COL31: "#efebd4",
+  COL32: "#efebd4",
+  COL33: "#714e36",
+  COL34: "#714e36",
+  COL35: "#714e36",
+  COL36: "#714e36",
+  COL37: "#714e36",
+  COL38: "#714e36",
+  COL39: "#714e36",
+  COL41: "#ffff3f",
+  COL42: "#ffff3f",
+  COL46: "#ffff3f",
+  COL47: "#ffff3f",
+  COL48: "#ffff3f",
+  COL51: "#387d1f",
+  COL52: "#387d1f",
+  COL53: "#387d1f",
+  COL54: "#387d1f",
+  COL55: "#387d1f",
+  COL56: "#387d1f",
+  COL57: "#387d1f",
+  COL58: "#387d1f",
+  COL59: "#387d1f",
+  COL60: "#0003f9",
+  COL61: "#0003f9",
+  COL62: "#0003f9",
+  COL63: "#0003f9",
+  COL64: "#0003f9",
+  COL65: "#0003f9",
+  COL66: "#0003f9",
+  COL67: "#0003f9",
+  COL68: "#0003f9",
+  COL69: "#0003f9",
+  COL71: "#741a7c",
+  COL72: "#741a7c",
+  COL73: "#741a7c",
+  COL77: "#741a7c",
+  COL78: "#741a7c",
+  COL79: "#741a7c",
 };
