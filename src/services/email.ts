@@ -14,9 +14,18 @@ export function createTransporter(config: Config) {
   });
 }
 
+function isLightColor(hexColor: string): boolean {
+  const hex = hexColor.replace("#", "");
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+  return brightness > 155;
+}
+
 export function generateProductLink(
   filteredProduct: FilteredProduct,
-  sizeCode: string
+  sizeCode: string,
 ): string {
   const { product } = filteredProduct;
   const baseUrl = "https://www.uniqlo.com/de/en/products";
@@ -29,7 +38,7 @@ export function generateProductLink(
 
 export function buildEmailHTML(
   products: FilteredProduct[],
-  discountThreshold: number
+  discountThreshold: number,
 ): string {
   const productRows = products
     .map((filteredProduct) => {
@@ -38,10 +47,16 @@ export function buildEmailHTML(
       const promoPrice = product.prices.promo.value.toFixed(2);
       const currency = product.prices.base.currency.symbol;
 
+      const representativeColor = product.colors.find(
+        (c) => c.displayCode === product.representativeColorDisplayCode,
+      );
+      const buttonColor = representativeColor?.hexBackgroundColor || "#007bff";
+      const textColor = isLightColor(buttonColor) ? "#000000" : "#ffffff";
+
       const sizeLinks = availableSizes
         .map((size) => {
           const url = generateProductLink(filteredProduct, size.sizeCode);
-          return `<a href="${url}" style="display: inline-block; margin: 4px; padding: 8px 16px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">${size.sizeName}</a>`;
+          return `<a href="${url}" style="display: inline-block; margin: 4px; padding: 8px 16px; background-color: ${buttonColor}; color: ${textColor}; text-decoration: none; border-radius: 4px; font-weight: bold;">${size.sizeName}</a>`;
         })
         .join("");
 
@@ -91,8 +106,8 @@ export function buildEmailHTML(
                   <p style="margin: 8px 0 0 0; color: white; font-size: 16px;">${
                     products.length
                   } product${
-    products.length !== 1 ? "s" : ""
-  } with ${discountThreshold}%+ discount</p>
+                    products.length !== 1 ? "s" : ""
+                  } with ${discountThreshold}%+ discount</p>
                 </td>
               </tr>
               ${productRows}
@@ -113,7 +128,7 @@ export function buildEmailHTML(
 
 export async function sendNotificationEmail(
   products: FilteredProduct[],
-  config: Config
+  config: Config,
 ): Promise<void> {
   try {
     const transporter = createTransporter(config);
@@ -135,7 +150,7 @@ export async function sendNotificationEmail(
 
 export async function sendErrorEmail(
   error: Error,
-  config: Config
+  config: Config,
 ): Promise<void> {
   const transporter = createTransporter(config);
   const timestamp = new Date().toISOString();

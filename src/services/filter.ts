@@ -53,7 +53,13 @@ export function extractAvailableSizes(
     return availableSizes;
   }
 
+  const excludedSizeCodes = ["SMA005", "SMA006", "SMA007", "SMA008"];
+
   for (const l2 of stockData.l2s) {
+    if (excludedSizeCodes.includes(l2.size.code)) {
+      continue;
+    }
+
     const stock = stockData.stocks[l2.l2Id];
 
     if (
