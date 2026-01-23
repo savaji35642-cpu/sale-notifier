@@ -159,6 +159,7 @@ export const SIZE_CODE_TO_NAME: Record<string, string> = {
   SMA008: "3XL",
 
   // Inch sizes (from API aggregation)
+  INS025: "25inch",
   INS028: "28inch",
   INS029: "29inch",
   INS030: "30inch",
