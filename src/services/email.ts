@@ -40,7 +40,8 @@ export function buildEmailHTML(
   products: FilteredProduct[],
   discountThreshold: number,
 ): string {
-  const productRows = products
+  const productRows = [...products]
+    .sort((a, b) => b.discountPercentage - a.discountPercentage)
     .map((filteredProduct) => {
       const { product, availableSizes, discountPercentage } = filteredProduct;
       const basePrice = product.prices.base.value.toFixed(2);
