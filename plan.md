@@ -15,8 +15,8 @@ A 24/7 automated bot that monitors Uniqlo's German store for men's sale items wi
 ### 2. Product Filtering Criteria
 
 #### Size Requirements
-- **Target Sizes**: XS, S, M only
-- **Size Codes**: SMA002 (XS), SMA003 (S), SMA004 (M)
+- **Excluded Sizes**: L, XL, XXL, 3XL (SMA005, SMA006, SMA007, SMA008)
+- **Accepted Sizes**: Any size not in the excluded list (e.g. XS, S, M, XXS, inch sizes, one-size)
 - **Availability**: Must be in stock and purchasable
 - **API Filter**: `inventoryCondition=1` (includes both online and physical store inventory)
 - **Color**: Any color acceptable

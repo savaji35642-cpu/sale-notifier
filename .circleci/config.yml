@@ -1,0 +1,44 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@5
+
+workflows:
+  scheduled-notifier:
+    triggers:
+      - schedule:
+          cron: "*/15 * * * *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - run-notifier
+
+  manual-trigger:
+    jobs:
+      - run-notifier:
+          filters:
+            branches:
+              only:
+                - master
+
+jobs:
+  run-notifier:
+    docker:
+      - image: cimg/node:20.18
+    resource_class: small
+    environment:
+      STORE_IDS: "120126,107303,115747,113150,115746,115470,111606,111311,131476,131415,131477,112786"
+      GENDER_ID: "37609"
+      DISCOUNT_THRESHOLD: "70"
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: npm
+      - run:
+          name: Build TypeScript
+          command: npm run build
+      - run:
+          name: Run notifier
+          command: npm start
