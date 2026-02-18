@@ -31,7 +31,7 @@ jobs:
     environment:
       STORE_IDS: "120126,107303,115747,113150,115746,115470,111606,111311,131476,131415,131477,112786"
       GENDER_ID: "37609"
-      DISCOUNT_THRESHOLD: "70"
+      DISCOUNT_THRESHOLD: "55"
     steps:
       - checkout
       - node/install-packages:
