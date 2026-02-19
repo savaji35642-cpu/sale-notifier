@@ -19,7 +19,7 @@ export function loadConfig(): Config {
 
   const discountThreshold = process.env.DISCOUNT_THRESHOLD
     ? parseInt(process.env.DISCOUNT_THRESHOLD, 10)
-    : 70;
+    : 55;
 
   if (
     isNaN(discountThreshold) ||
@@ -34,6 +34,11 @@ export function loadConfig(): Config {
     .split(",")
     .map((id) => id.trim())
     .filter((id) => id.length > 0);
+
+  if (storeIds.length === 0) {
+    throw new Error("STORE_IDS must contain at least one store ID");
+  }
+
   const genderId = process.env.GENDER_ID || "37609";
 
   return {

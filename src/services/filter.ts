@@ -2,9 +2,6 @@ import {
   Product,
   FilteredProduct,
   AvailableSize,
-  SIZE_CODES,
-  SIZE_DISPLAY_CODES,
-  SIZE_NAMES,
   SIZE_CODE_TO_NAME,
 } from "../types/product";
 
@@ -71,7 +68,6 @@ export function extractAvailableSizes(
       availableSizes.push({
         sizeCode: l2.size.displayCode,
         sizeName: sizeName,
-        displayCode: l2.size.displayCode,
       });
     }
   }
@@ -81,7 +77,6 @@ export function extractAvailableSizes(
 
 async function processBatch(
   products: Product[],
-  threshold: number,
   storeId: string,
   fetchStockFn: (
     productId: string,
@@ -91,10 +86,6 @@ async function processBatch(
 ): Promise<FilteredProduct[]> {
   const results = await Promise.allSettled(
     products.map(async (product) => {
-      if (!meetsDiscountThreshold(product, threshold)) {
-        return null;
-      }
-
       try {
         const stockData = await fetchStockFn(
           product.productId,
@@ -112,10 +103,17 @@ async function processBatch(
           product.prices.promo.value,
         );
 
+        const lowestPrice = product.prices.lowestPriceDetails?.lowestPrice;
+        const discountVsRecent =
+          lowestPrice != null
+            ? calculateDiscount(lowestPrice, product.prices.promo.value)
+            : null;
+
         return {
           product,
           availableSizes,
           discountPercentage: discount,
+          discountVsRecent,
         };
       } catch (error) {
         console.warn(
@@ -137,7 +135,6 @@ async function processBatch(
 
 export async function filterProducts(
   products: Product[],
-  threshold: number,
   storeId: string,
   fetchStockFn: (
     productId: string,
@@ -156,7 +153,6 @@ export async function filterProducts(
     const batch = products.slice(i, i + BATCH_SIZE);
     const batchResults = await processBatch(
       batch,
-      threshold,
       storeId,
       fetchStockFn,
     );

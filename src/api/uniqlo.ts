@@ -2,20 +2,18 @@ import axios, { AxiosError } from "axios";
 import {
   ApiResponse,
   Product,
-  SIZE_CODES,
   StockApiResponse,
 } from "../types/product";
 
 const BASE_URL = "https://www.uniqlo.com/de/api/commerce/v5/en/products";
 const REQUEST_DELAY_MS = 800;
 const REQUEST_TIMEOUT_MS = 30000;
-const STOCK_CHECK_DELAY_MS = 500;
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function fetchProductPage(
+async function fetchProductPage(
   offset: number,
   limit: number,
   storeId: string,
@@ -127,16 +125,19 @@ export async function fetchAllProducts(
     console.log(`Fetching page at offset ${offset}...`);
 
     const response = await fetchProductPage(offset, limit, storeId, genderId);
-    const items = response.result.items;
+    const { items, pagination } = response.result;
 
-    if (items && items.length > 0) {
-      allProducts.push(...items);
-      console.log(
-        `Fetched ${items.length} products (total: ${allProducts.length})`,
-      );
+    if (!items || items.length === 0) {
+      console.log("Received empty page, stopping pagination");
+      break;
     }
 
-    hasMore = items.length === limit;
+    allProducts.push(...items);
+    console.log(
+      `Fetched ${items.length} products (total: ${allProducts.length}/${pagination.total})`,
+    );
+
+    hasMore = allProducts.length < pagination.total;
     offset += limit;
 
     if (hasMore) {

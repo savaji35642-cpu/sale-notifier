@@ -1,8 +1,7 @@
 import nodemailer from "nodemailer";
-import { FilteredProduct, COLOR_CODE_TO_HEX } from "../types/product";
-import { Config } from "../types/product";
+import { FilteredProduct, COLOR_CODE_TO_HEX, Config } from "../types/product";
 
-export function createTransporter(config: Config) {
+function createTransporter(config: Config) {
   return nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -14,6 +13,14 @@ export function createTransporter(config: Config) {
   });
 }
 
+function escapeHtml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
 function isLightColor(hexColor: string): boolean {
   const hex = hexColor.replace("#", "");
   const r = parseInt(hex.substring(0, 2), 16);
@@ -23,7 +30,7 @@ function isLightColor(hexColor: string): boolean {
   return brightness > 155;
 }
 
-export function generateProductLink(
+function generateProductLink(
   filteredProduct: FilteredProduct,
   sizeCode: string,
 ): string {
@@ -43,7 +50,7 @@ export function buildEmailHTML(
   const productRows = [...products]
     .sort((a, b) => b.discountPercentage - a.discountPercentage)
     .map((filteredProduct) => {
-      const { product, availableSizes, discountPercentage } = filteredProduct;
+      const { product, availableSizes, discountPercentage, discountVsRecent } = filteredProduct;
       const basePrice = product.prices.base.value.toFixed(2);
       const promoPrice = product.prices.promo.value.toFixed(2);
       const currency = product.prices.base.currency.symbol;
@@ -66,18 +73,19 @@ export function buildEmailHTML(
         product.images?.main?.[product.representativeColorDisplayCode]?.image ||
         "";
       const imageTag = imageUrl
-        ? `<img src="${imageUrl}" alt="${product.name}" style="max-width: 150px; height: auto; border-radius: 8px; margin-bottom: 12px;">`
+        ? `<img src="${imageUrl}" alt="${escapeHtml(product.name)}" style="max-width: 150px; height: auto; border-radius: 8px; margin-bottom: 12px;">`
         : "";
 
       return `
         <tr>
           <td style="padding: 20px; border-bottom: 1px solid #e0e0e0;">
             ${imageTag}
-            <h3 style="margin: 0 0 8px 0; color: #333; font-size: 18px;">${product.name}</h3>
+            <h3 style="margin: 0 0 8px 0; color: #333; font-size: 18px;">${escapeHtml(product.name)}</h3>
             <p style="margin: 8px 0;">
               <span style="text-decoration: line-through; color: #999; font-size: 16px;">${currency}${basePrice}</span>
               <span style="color: #e74c3c; font-weight: bold; font-size: 20px; margin-left: 12px;">${currency}${promoPrice}</span>
               <span style="background-color: #e74c3c; color: white; padding: 4px 8px; border-radius: 4px; font-weight: bold; margin-left: 12px; font-size: 14px;">${discountPercentage}% OFF</span>
+              ${discountVsRecent != null ? `<span style="color: #888; font-size: 13px; margin-left: 8px;">(${discountVsRecent}% vs recent price)</span>` : ""}
             </p>
             <p style="margin: 12px 0 4px 0; color: #666; font-size: 14px;">Available sizes:</p>
             <div style="margin-top: 8px;">
@@ -132,22 +140,18 @@ export async function sendNotificationEmail(
   products: FilteredProduct[],
   config: Config,
 ): Promise<void> {
-  try {
-    const transporter = createTransporter(config);
-    const htmlContent = buildEmailHTML(products, config.discountThreshold);
-    const subject = `Uniqlo Sale Alert: ${products.length} products with ${config.discountThreshold}%+ discount`;
+  const transporter = createTransporter(config);
+  const htmlContent = buildEmailHTML(products, config.discountThreshold);
+  const subject = `Uniqlo Sale Alert: ${products.length} products with ${config.discountThreshold}%+ discount`;
 
-    await transporter.sendMail({
-      from: config.gmailUser,
-      to: config.recipientEmail,
-      subject: subject,
-      html: htmlContent,
-    });
+  await transporter.sendMail({
+    from: config.gmailUser,
+    to: config.recipientEmail,
+    subject: subject,
+    html: htmlContent,
+  });
 
-    console.log("Notification email sent successfully");
-  } catch (error) {
-    console.error("Failed to send notification email:", error);
-  }
+  console.log("Notification email sent successfully");
 }
 
 export async function sendErrorEmail(

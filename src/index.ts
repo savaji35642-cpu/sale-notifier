@@ -1,15 +1,18 @@
 import "dotenv/config";
 import { loadConfig } from "./utils/config";
 import { fetchAllProducts, fetchProductStock } from "./api/uniqlo";
-import { filterProducts } from "./services/filter";
+import { filterProducts, meetsDiscountThreshold } from "./services/filter";
 import { sendNotificationEmail, sendErrorEmail } from "./services/email";
+import { Config, Product } from "./types/product";
 
 async function main() {
+  let config: Config | undefined;
+
   try {
     console.log("=== Uniqlo Sale Notifier Started ===");
     console.log(`Timestamp: ${new Date().toISOString()}`);
 
-    const config = loadConfig();
+    config = loadConfig();
     console.log("Configuration loaded successfully");
     console.log(`Discount threshold: ${config.discountThreshold}%`);
     console.log(`Store IDs: ${config.storeIds.join(", ")}`);
@@ -18,7 +21,7 @@ async function main() {
     console.log("\n--- Fetching Products from All Stores (in parallel) ---");
     const fetchPromises = config.storeIds.map(async (storeId) => {
       console.log(`Starting fetch from store ${storeId}...`);
-      const storeProducts = await fetchAllProducts(storeId, config.genderId);
+      const storeProducts = await fetchAllProducts(storeId, config!.genderId);
       console.log(
         `  Fetched ${storeProducts.length} products from store ${storeId}`,
       );
@@ -32,7 +35,7 @@ async function main() {
     );
 
     console.log("\n--- Deduplicating Products ---");
-    const uniqueProductsMap = new Map();
+    const uniqueProductsMap = new Map<string, Product>();
     for (const product of allProducts) {
       if (!uniqueProductsMap.has(product.productId)) {
         uniqueProductsMap.set(product.productId, product);
@@ -44,18 +47,9 @@ async function main() {
     );
 
     console.log("\n--- Pre-filtering by Discount Threshold ---");
-    const discountQualifyingProducts = uniqueProducts.filter((product) => {
-      if (!product.prices || !product.prices.base || !product.prices.promo) {
-        return false;
-      }
-      if (!product.prices.isDualPrice) {
-        return false;
-      }
-      const basePrice = product.prices.base.value;
-      const promoPrice = product.prices.promo.value;
-      const discount = ((basePrice - promoPrice) / basePrice) * 100;
-      return discount >= config.discountThreshold;
-    });
+    const discountQualifyingProducts = uniqueProducts.filter((product) =>
+      meetsDiscountThreshold(product, config!.discountThreshold),
+    );
     console.log(
       `Products meeting discount threshold (${config.discountThreshold}%): ${discountQualifyingProducts.length}`,
     );
@@ -63,7 +57,6 @@ async function main() {
     console.log("\n--- Checking Stock for Qualifying Products ---");
     const qualifyingProducts = await filterProducts(
       discountQualifyingProducts,
-      config.discountThreshold,
       config.storeIds[0],
       fetchProductStock,
     );
@@ -79,7 +72,6 @@ async function main() {
       });
 
       await sendNotificationEmail(qualifyingProducts, config);
-      console.log("Email sent successfully");
     } else {
       console.log("\n--- No Qualifying Products ---");
       console.log("No email will be sent");
@@ -91,13 +83,14 @@ async function main() {
     console.error("\n=== Bot Encountered an Error ===");
     console.error("Error details:", error);
 
-    try {
-      const config = loadConfig();
-      console.log("\nAttempting to send error notification email...");
-      await sendErrorEmail(error as Error, config);
-      console.log("Error notification email sent successfully");
-    } catch (emailError) {
-      console.error("Failed to send error notification email:", emailError);
+    if (config) {
+      try {
+        console.log("\nAttempting to send error notification email...");
+        await sendErrorEmail(error as Error, config);
+        console.log("Error notification email sent successfully");
+      } catch (emailError) {
+        console.error("Failed to send error notification email:", emailError);
+      }
     }
 
     console.error("\n=== Bot Execution Failed ===");
