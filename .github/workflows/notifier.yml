@@ -1,0 +1,32 @@
+name: Uniqlo Sale Notifier
+
+on:
+  schedule:
+    - cron: "0,15,30,45 * * * *"
+  workflow_dispatch:
+
+jobs:
+  run-notifier:
+    runs-on: ubuntu-latest
+    env:
+      STORE_IDS: "120126,107303,115747,113150,115746,115470,111606,111311,131476,131415,131477,112786"
+      GENDER_ID: "37609"
+      DISCOUNT_THRESHOLD: "55"
+      GMAIL_USER: ${{ secrets.GMAIL_USER }}
+      GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+      RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Build TypeScript
+        run: npm run build
+
+      - name: Run notifier
+        run: npm start
