@@ -17,6 +17,14 @@ export function loadConfig(): Config {
     throw new Error("RECIPIENT_EMAIL environment variable is required");
   }
 
+  if (!process.env.API_BASE_URL) {
+    throw new Error("API_BASE_URL environment variable is required");
+  }
+
+  if (!process.env.PRODUCT_BASE_URL) {
+    throw new Error("PRODUCT_BASE_URL environment variable is required");
+  }
+
   const discountThreshold = process.env.DISCOUNT_THRESHOLD
     ? parseInt(process.env.DISCOUNT_THRESHOLD, 10)
     : 55;

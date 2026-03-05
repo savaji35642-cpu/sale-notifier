@@ -1,13 +1,20 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import {
   ApiResponse,
   Product,
   StockApiResponse,
 } from "../types/product";
 
-const BASE_URL = "https://www.uniqlo.com/de/api/commerce/v5/en/products";
+const BASE_URL = process.env.API_BASE_URL!;
 const REQUEST_DELAY_MS = 800;
 const REQUEST_TIMEOUT_MS = 30000;
+
+const API_HEADERS = {
+  "User-Agent":
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
+  Accept: "application/json",
+  "x-fr-clientid": "uq.de.web-spa",
+};
 
 function sleep(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
@@ -36,12 +43,7 @@ async function fetchProductPage(
   try {
     const response = await axios.get<ApiResponse>(url, {
       timeout: REQUEST_TIMEOUT_MS,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-        Accept: "application/json",
-        "x-fr-clientid": "uq.de.web-spa",
-      },
+      headers: API_HEADERS,
     });
 
     if (response.data.status !== "ok") {
@@ -51,15 +53,14 @@ async function fetchProductPage(
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      if (axiosError.response) {
+      if (error.response) {
         throw new Error(
-          `API request failed with status ${axiosError.response.status}: ${axiosError.response.statusText}`,
+          `API request failed with status ${error.response.status}: ${error.response.statusText}`,
         );
-      } else if (axiosError.request) {
+      } else if (error.request) {
         throw new Error("API request failed: No response received from server");
       } else {
-        throw new Error(`API request failed: ${axiosError.message}`);
+        throw new Error(`API request failed: ${error.message}`);
       }
     }
     throw error;
@@ -76,12 +77,7 @@ export async function fetchProductStock(
   try {
     const response = await axios.get<StockApiResponse>(url, {
       timeout: REQUEST_TIMEOUT_MS,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
-        Accept: "application/json",
-        "x-fr-clientid": "uq.de.web-spa",
-      },
+      headers: API_HEADERS,
     });
 
     if (response.data.status !== "ok") {
@@ -93,17 +89,16 @@ export async function fetchProductStock(
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      const axiosError = error as AxiosError;
-      if (axiosError.response) {
+      if (error.response) {
         throw new Error(
-          `Stock API request failed with status ${axiosError.response.status}: ${axiosError.response.statusText}`,
+          `Stock API request failed with status ${error.response.status}: ${error.response.statusText}`,
         );
-      } else if (axiosError.request) {
+      } else if (error.request) {
         throw new Error(
           "Stock API request failed: No response received from server",
         );
       } else {
-        throw new Error(`Stock API request failed: ${axiosError.message}`);
+        throw new Error(`Stock API request failed: ${error.message}`);
       }
     }
     throw error;
@@ -119,22 +114,22 @@ export async function fetchAllProducts(
   const limit = 36;
   let hasMore = true;
 
-  console.log("Starting to fetch all products...");
+  console.log(`[Store ${storeId}] Starting to fetch all products...`);
 
   while (hasMore) {
-    console.log(`Fetching page at offset ${offset}...`);
+    console.log(`[Store ${storeId}] Fetching page at offset ${offset}...`);
 
     const response = await fetchProductPage(offset, limit, storeId, genderId);
     const { items, pagination } = response.result;
 
     if (!items || items.length === 0) {
-      console.log("Received empty page, stopping pagination");
+      console.log(`[Store ${storeId}] Received empty page, stopping pagination`);
       break;
     }
 
     allProducts.push(...items);
     console.log(
-      `Fetched ${items.length} products (total: ${allProducts.length}/${pagination.total})`,
+      `[Store ${storeId}] Fetched ${items.length} products (total: ${allProducts.length}/${pagination.total})`,
     );
 
     hasMore = allProducts.length < pagination.total;
@@ -143,10 +138,10 @@ export async function fetchAllProducts(
     if (hasMore) {
       await sleep(REQUEST_DELAY_MS);
     } else {
-      console.log("Reached last page");
+      console.log(`[Store ${storeId}] Reached last page`);
     }
   }
 
-  console.log(`Total products fetched: ${allProducts.length}`);
+  console.log(`[Store ${storeId}] Total products fetched: ${allProducts.length}`);
   return allProducts;
 }

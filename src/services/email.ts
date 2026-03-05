@@ -174,15 +174,15 @@ export async function sendErrorEmail(
         <p style="color: #666; font-size: 14px;"><strong>Timestamp:</strong> ${timestamp}</p>
         <div style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0;">
           <h3 style="margin-top: 0; color: #856404;">Error Message:</h3>
-          <p style="margin: 0; color: #856404; font-family: monospace;">${
-            error.message
-          }</p>
+          <p style="margin: 0; color: #856404; font-family: monospace;">${escapeHtml(
+            error.message,
+          )}</p>
         </div>
         <div style="background-color: #f8f9fa; padding: 15px; margin: 20px 0; border-radius: 4px;">
           <h3 style="margin-top: 0;">Stack Trace:</h3>
-          <pre style="margin: 0; font-size: 12px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;">${
-            error.stack || "No stack trace available"
-          }</pre>
+          <pre style="margin: 0; font-size: 12px; overflow-x: auto; white-space: pre-wrap; word-wrap: break-word;">${escapeHtml(
+            error.stack || "No stack trace available",
+          )}</pre>
         </div>
         <p style="color: #666; font-size: 14px;">The bot has stopped execution. Please investigate and resolve the issue.</p>
       </div>

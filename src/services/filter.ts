@@ -3,7 +3,12 @@ import {
   FilteredProduct,
   AvailableSize,
   SIZE_CODE_TO_NAME,
+  L2Item,
+  StockInfo,
+  StockApiResponse,
 } from "../types/product";
+
+const EXCLUDED_SIZE_CODES = new Set(["SMA005", "SMA006", "SMA007", "SMA008"]);
 
 export function calculateDiscount(
   basePrice: number,
@@ -41,19 +46,21 @@ export function meetsDiscountThreshold(
 }
 
 export function extractAvailableSizes(
-  product: Product,
-  stockData?: { l2s: any[]; stocks: Record<string, any> },
+  stockData?: { l2s: L2Item[]; stocks: Record<string, StockInfo> },
 ): AvailableSize[] {
-  const availableSizes: AvailableSize[] = [];
-
   if (!stockData) {
-    return availableSizes;
+    return [];
   }
 
-  const excludedSizeCodes = ["SMA005", "SMA006", "SMA007", "SMA008"];
+  const seenSizeCodes = new Set<string>();
+  const availableSizes: AvailableSize[] = [];
 
   for (const l2 of stockData.l2s) {
-    if (excludedSizeCodes.includes(l2.size.code)) {
+    if (EXCLUDED_SIZE_CODES.has(l2.size.code)) {
+      continue;
+    }
+
+    if (seenSizeCodes.has(l2.size.code)) {
       continue;
     }
 
@@ -63,6 +70,7 @@ export function extractAvailableSizes(
       stock &&
       (stock.statusCode === "IN_STOCK" || stock.statusCode === "LOW_STOCK")
     ) {
+      seenSizeCodes.add(l2.size.code);
       const sizeName = SIZE_CODE_TO_NAME[l2.size.code] || l2.size.displayCode;
 
       availableSizes.push({
@@ -76,23 +84,22 @@ export function extractAvailableSizes(
 }
 
 async function processBatch(
-  products: Product[],
-  storeId: string,
+  entries: Array<{ product: Product; storeId: string }>,
   fetchStockFn: (
     productId: string,
     priceGroup: string,
     storeId: string,
-  ) => Promise<any>,
+  ) => Promise<StockApiResponse>,
 ): Promise<FilteredProduct[]> {
   const results = await Promise.allSettled(
-    products.map(async (product) => {
+    entries.map(async ({ product, storeId }) => {
       try {
         const stockData = await fetchStockFn(
           product.productId,
           product.priceGroup,
           storeId,
         );
-        const availableSizes = extractAvailableSizes(product, stockData.result);
+        const availableSizes = extractAvailableSizes(stockData.result);
 
         if (availableSizes.length === 0) {
           return null;
@@ -104,9 +111,10 @@ async function processBatch(
         );
 
         const lowestPrice = product.prices.lowestPriceDetails?.lowestPrice;
+        const promoPrice = product.prices.promo.value;
         const discountVsRecent =
-          lowestPrice != null
-            ? calculateDiscount(lowestPrice, product.prices.promo.value)
+          lowestPrice != null && lowestPrice > promoPrice
+            ? calculateDiscount(lowestPrice, promoPrice)
             : null;
 
         return {
@@ -127,41 +135,36 @@ async function processBatch(
 
   return results
     .filter(
-      (result): result is PromiseFulfilledResult<FilteredProduct | null> =>
+      (result): result is PromiseFulfilledResult<FilteredProduct> =>
         result.status === "fulfilled" && result.value !== null,
     )
-    .map((result) => result.value as FilteredProduct);
+    .map((result) => result.value);
 }
 
 export async function filterProducts(
-  products: Product[],
-  storeId: string,
+  entries: Array<{ product: Product; storeId: string }>,
   fetchStockFn: (
     productId: string,
     priceGroup: string,
     storeId: string,
-  ) => Promise<any>,
+  ) => Promise<StockApiResponse>,
 ): Promise<FilteredProduct[]> {
   const filtered: FilteredProduct[] = [];
   const BATCH_SIZE = 15;
 
   console.log(
-    `Checking stock for ${products.length} products in parallel batches of ${BATCH_SIZE}...`,
+    `Checking stock for ${entries.length} products in parallel batches of ${BATCH_SIZE}...`,
   );
 
-  for (let i = 0; i < products.length; i += BATCH_SIZE) {
-    const batch = products.slice(i, i + BATCH_SIZE);
-    const batchResults = await processBatch(
-      batch,
-      storeId,
-      fetchStockFn,
-    );
+  for (let i = 0; i < entries.length; i += BATCH_SIZE) {
+    const batch = entries.slice(i, i + BATCH_SIZE);
+    const batchResults = await processBatch(batch, fetchStockFn);
 
     filtered.push(...batchResults);
 
     console.log(
-      `Processed ${Math.min(i + BATCH_SIZE, products.length)}/${
-        products.length
+      `Processed ${Math.min(i + BATCH_SIZE, entries.length)}/${
+        entries.length
       } products, found ${filtered.length} qualifying`,
     );
   }

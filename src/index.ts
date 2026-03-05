@@ -19,45 +19,60 @@ async function main() {
     console.log(`Gender ID: ${config.genderId}`);
 
     console.log("\n--- Fetching Products from All Stores (in parallel) ---");
-    const fetchPromises = config.storeIds.map(async (storeId) => {
-      console.log(`Starting fetch from store ${storeId}...`);
-      const storeProducts = await fetchAllProducts(storeId, config!.genderId);
-      console.log(
-        `  Fetched ${storeProducts.length} products from store ${storeId}`,
-      );
-      return storeProducts;
-    });
-
-    const storeResults = await Promise.all(fetchPromises);
-    const allProducts = storeResults.flat();
-    console.log(
-      `Total products fetched from all stores: ${allProducts.length}`,
+    const fetchPromises = config.storeIds.map((storeId) =>
+      fetchAllProducts(storeId, config!.genderId).then((products) => ({
+        storeId,
+        products,
+      })),
     );
 
-    console.log("\n--- Deduplicating Products ---");
-    const uniqueProductsMap = new Map<string, Product>();
-    for (const product of allProducts) {
-      if (!uniqueProductsMap.has(product.productId)) {
-        uniqueProductsMap.set(product.productId, product);
+    const storeResults = await Promise.allSettled(fetchPromises);
+    const successfulResults: Array<{ storeId: string; products: Product[] }> =
+      [];
+    for (const result of storeResults) {
+      if (result.status === "fulfilled") {
+        successfulResults.push(result.value);
+      } else {
+        console.warn(`Store fetch failed: ${result.reason}`);
       }
     }
-    const uniqueProducts = Array.from(uniqueProductsMap.values());
-    console.log(
-      `Unique products after deduplication: ${uniqueProducts.length}`,
+
+    if (successfulResults.length === 0) {
+      throw new Error("All store fetches failed — no products to process");
+    }
+
+    const totalFetched = successfulResults.reduce(
+      (sum, r) => sum + r.products.length,
+      0,
     );
+    console.log(`Total products fetched from all stores: ${totalFetched}`);
+
+    console.log("\n--- Deduplicating Products ---");
+    const uniqueProductsMap = new Map<
+      string,
+      { product: Product; storeId: string }
+    >();
+    for (const { storeId, products } of successfulResults) {
+      for (const product of products) {
+        if (!uniqueProductsMap.has(product.productId)) {
+          uniqueProductsMap.set(product.productId, { product, storeId });
+        }
+      }
+    }
+    const uniqueEntries = Array.from(uniqueProductsMap.values());
+    console.log(`Unique products after deduplication: ${uniqueEntries.length}`);
 
     console.log("\n--- Pre-filtering by Discount Threshold ---");
-    const discountQualifyingProducts = uniqueProducts.filter((product) =>
+    const discountQualifyingEntries = uniqueEntries.filter(({ product }) =>
       meetsDiscountThreshold(product, config!.discountThreshold),
     );
     console.log(
-      `Products meeting discount threshold (${config.discountThreshold}%): ${discountQualifyingProducts.length}`,
+      `Products meeting discount threshold (${config.discountThreshold}%): ${discountQualifyingEntries.length}`,
     );
 
     console.log("\n--- Checking Stock for Qualifying Products ---");
     const qualifyingProducts = await filterProducts(
-      discountQualifyingProducts,
-      config.storeIds[0],
+      discountQualifyingEntries,
       fetchProductStock,
     );
     console.log(`Products meeting all criteria: ${qualifyingProducts.length}`);
@@ -86,7 +101,9 @@ async function main() {
     if (config) {
       try {
         console.log("\nAttempting to send error notification email...");
-        await sendErrorEmail(error as Error, config);
+        const err =
+          error instanceof Error ? error : new Error(String(error));
+        await sendErrorEmail(err, config);
         console.log("Error notification email sent successfully");
       } catch (emailError) {
         console.error("Failed to send error notification email:", emailError);
