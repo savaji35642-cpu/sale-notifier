@@ -35,7 +35,7 @@ function generateProductLink(
   sizeCode: string,
 ): string {
   const { product } = filteredProduct;
-  const baseUrl = "https://www.uniqlo.com/de/en/products";
+  const baseUrl = process.env.PRODUCT_BASE_URL!;
   const productId = product.productId;
   const priceGroup = product.priceGroup;
   const colorCode = product.representativeColorDisplayCode;
@@ -103,7 +103,7 @@ export function buildEmailHTML(
     <head>
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Uniqlo Sale Alert</title>
+      <title>Sale Alert</title>
     </head>
     <body style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #f4f4f4;">
       <table role="presentation" style="width: 100%; border-collapse: collapse;">
@@ -112,7 +112,7 @@ export function buildEmailHTML(
             <table role="presentation" style="max-width: 600px; margin: 0 auto; background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
               <tr>
                 <td style="padding: 30px; text-align: center; background-color: #e74c3c; border-radius: 8px 8px 0 0;">
-                  <h1 style="margin: 0; color: white; font-size: 28px;">🔥 Uniqlo Sale Alert</h1>
+                  <h1 style="margin: 0; color: white; font-size: 28px;">🔥 Sale Alert</h1>
                   <p style="margin: 8px 0 0 0; color: white; font-size: 16px;">${
                     products.length
                   } product${
@@ -123,7 +123,7 @@ export function buildEmailHTML(
               ${productRows}
               <tr>
                 <td style="padding: 20px; text-align: center; background-color: #f9f9f9; border-radius: 0 0 8px 8px;">
-                  <p style="margin: 0; color: #666; font-size: 14px;">This is an automated notification from your Uniqlo Sale Notifier bot.</p>
+                  <p style="margin: 0; color: #666; font-size: 14px;">This is an automated sale notification.</p>
                   <p style="margin: 8px 0 0 0; color: #999; font-size: 12px;">Prices and availability are subject to change.</p>
                 </td>
               </tr>
@@ -142,7 +142,7 @@ export async function sendNotificationEmail(
 ): Promise<void> {
   const transporter = createTransporter(config);
   const htmlContent = buildEmailHTML(products, config.discountThreshold);
-  const subject = `Uniqlo Sale Alert: ${products.length} products with ${config.discountThreshold}%+ discount`;
+  const subject = `Sale Alert: ${products.length} products with ${config.discountThreshold}%+ discount`;
 
   await transporter.sendMail({
     from: config.gmailUser,
@@ -166,11 +166,11 @@ export async function sendErrorEmail(
     <html>
     <head>
       <meta charset="utf-8">
-      <title>Uniqlo Bot Error</title>
+      <title>Notifier Error</title>
     </head>
     <body style="font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4;">
       <div style="max-width: 600px; margin: 0 auto; background-color: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-        <h1 style="color: #e74c3c; margin-top: 0;">⚠️ Uniqlo Bot Error</h1>
+        <h1 style="color: #e74c3c; margin-top: 0;">⚠️ Error</h1>
         <p style="color: #666; font-size: 14px;"><strong>Timestamp:</strong> ${timestamp}</p>
         <div style="background-color: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0;">
           <h3 style="margin-top: 0; color: #856404;">Error Message:</h3>
@@ -184,7 +184,7 @@ export async function sendErrorEmail(
             error.stack || "No stack trace available",
           )}</pre>
         </div>
-        <p style="color: #666; font-size: 14px;">The bot has stopped execution. Please investigate and resolve the issue.</p>
+        <p style="color: #666; font-size: 14px;">Execution has stopped. Please investigate and resolve the issue.</p>
       </div>
     </body>
     </html>
@@ -193,7 +193,7 @@ export async function sendErrorEmail(
   await transporter.sendMail({
     from: config.gmailUser,
     to: config.recipientEmail,
-    subject: `Uniqlo Bot Error - ${timestamp}`,
+    subject: `Notifier Error - ${timestamp}`,
     html: htmlContent,
   });
 

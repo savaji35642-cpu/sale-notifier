@@ -1,7 +1,7 @@
 {
-  "name": "uniqlo-sale-notifier",
+  "name": "sale-notifier",
   "version": "1.0.0",
-  "description": "Automated bot that monitors Uniqlo's German store for men's sale items with 70%+ discounts in sizes XS, S, or M",
+  "description": "Automated sale notifier bot",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -9,13 +9,7 @@
     "dev": "ts-node src/index.ts",
     "test": "ts-node src/index.ts"
   },
-  "keywords": [
-    "uniqlo",
-    "sale",
-    "notifier",
-    "bot",
-    "typescript"
-  ],
+  "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {

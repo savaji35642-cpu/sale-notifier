@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { loadConfig } from "./utils/config";
-import { fetchAllProducts, fetchProductStock } from "./api/uniqlo";
+import { fetchAllProducts, fetchProductStock } from "./api/client";
 import { filterProducts, meetsDiscountThreshold } from "./services/filter";
 import { sendNotificationEmail, sendErrorEmail } from "./services/email";
 import { Config, Product } from "./types/product";
@@ -9,7 +9,7 @@ async function main() {
   let config: Config | undefined;
 
   try {
-    console.log("=== Uniqlo Sale Notifier Started ===");
+    console.log("=== Sale Notifier Started ===");
     console.log(`Timestamp: ${new Date().toISOString()}`);
 
     config = loadConfig();
@@ -92,10 +92,10 @@ async function main() {
       console.log("No email will be sent");
     }
 
-    console.log("\n=== Bot Run Completed Successfully ===");
+    console.log("\n=== Run Completed Successfully ===");
     process.exit(0);
   } catch (error) {
-    console.error("\n=== Bot Encountered an Error ===");
+    console.error("\n=== Encountered an Error ===");
     console.error("Error details:", error);
 
     if (config) {
@@ -110,7 +110,7 @@ async function main() {
       }
     }
 
-    console.error("\n=== Bot Execution Failed ===");
+    console.error("\n=== Execution Failed ===");
     process.exit(1);
   }
 }

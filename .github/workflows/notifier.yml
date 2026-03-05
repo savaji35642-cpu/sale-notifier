@@ -1,4 +1,4 @@
-name: Uniqlo Sale Notifier
+name: Sale Notifier
 
 on:
   workflow_dispatch:
@@ -13,6 +13,8 @@ jobs:
       GMAIL_USER: ${{ secrets.GMAIL_USER }}
       GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
       RECIPIENT_EMAIL: ${{ secrets.RECIPIENT_EMAIL }}
+      API_BASE_URL: ${{ secrets.API_BASE_URL }}
+      PRODUCT_BASE_URL: ${{ secrets.PRODUCT_BASE_URL }}
     steps:
       - uses: actions/checkout@v4
 
@@ -23,8 +25,8 @@ jobs:
 
       - run: npm ci
 
-      - name: Build TypeScript
+      - name: Build
         run: npm run build
 
-      - name: Run notifier
+      - name: Run
         run: npm start
