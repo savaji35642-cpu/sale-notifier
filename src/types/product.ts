@@ -74,6 +74,10 @@ export interface StockInfo {
 
 export interface L2Item {
   l2Id: string;
+  color: {
+    code: string;
+    displayCode: string;
+  };
   size: {
     code: string;
     displayCode: string;
@@ -119,7 +123,17 @@ export const SIZE_CODE_TO_NAME: Record<string, string> = {
   INS034: "34inch",
   INS035: "35inch",
   INS036: "36inch",
+  INS038: "38inch",
   INS040: "40inch",
+
+  // Body length sizes in cm (outerwear — from API aggregation)
+  KAG100: "100cm",
+  KAG110: "110cm",
+  KAG120: "120cm",
+  KAG130: "130cm",
+  KAG140: "140cm",
+  KAG150: "150cm",
+  KAG160: "160cm",
 
   // PLD sizes (from API aggregation)
   INA030: "30inch",

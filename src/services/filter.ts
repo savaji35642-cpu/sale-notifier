@@ -66,10 +66,14 @@ export function extractAvailableSizes(
 
     const stock = stockData.stocks[l2.l2Id];
 
-    if (
-      stock &&
-      (stock.statusCode === "IN_STOCK" || stock.statusCode === "LOW_STOCK")
-    ) {
+    if (!stock) {
+      console.warn(
+        `No stock entry for l2Id ${l2.l2Id} (size ${l2.size.code}, color ${l2.color?.code ?? "unknown"}) — skipping`,
+      );
+      continue;
+    }
+
+    if (stock.statusCode === "IN_STOCK" || stock.statusCode === "LOW_STOCK") {
       seenSizeCodes.add(l2.size.code);
       const sizeName = SIZE_CODE_TO_NAME[l2.size.code] || l2.size.displayCode;
 
