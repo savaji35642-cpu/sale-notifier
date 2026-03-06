@@ -8,7 +8,15 @@ import {
   StockApiResponse,
 } from "../types/product";
 
-const EXCLUDED_SIZE_CODES = new Set(["SMA005", "SMA006", "SMA007", "SMA008"]);
+const EXCLUDED_SIZE_CODES = new Set([
+  // Clothing: L and above
+  "SMA005", "SMA006", "SMA007", "SMA008",
+  // Inch/waist: keep only 30, 31, 32
+  "INS025", "INS028", "INS029",
+  "INS033", "INS034", "INS035", "INS036", "INS038", "INS040",
+  // PLD inch: keep only 30, 32 — exclude 34
+  "INA034",
+]);
 
 export function calculateDiscount(
   basePrice: number,
