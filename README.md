@@ -14,7 +14,7 @@ Automated bot that monitors sale items and sends email notifications when qualif
 
 ### 1. Configure GitHub Secrets
 
-Go to **Settings → Secrets and variables → Actions** and add:
+Go to **Settings → Secrets and variables → Actions → Secrets** and add:
 
 | Secret | Required | Description |
 |--------|----------|-------------|
@@ -24,11 +24,21 @@ Go to **Settings → Secrets and variables → Actions** and add:
 | `API_BASE_URL` | Yes | API endpoint |
 | `PRODUCT_BASE_URL` | Yes | Product page base URL |
 
-### 2. Trigger
+### 2. Choose Product Categories (optional)
+
+Go to **Settings → Secrets and variables → Actions → Variables** and add a repository variable:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `CATEGORIES` | `men,women,kids` | Comma-separated list of categories to check. Any subset of `men`, `women`, `kids`. |
+
+This applies to every run — both manual and the scheduled cron-job.org trigger (see [CRON_SETUP.md](CRON_SETUP.md)) — since neither passes per-run inputs. Edit the variable's value any time to change which categories are checked.
+
+### 3. Trigger
 
 Go to **Actions → Sale Notifier → Run workflow**.
 
-### 3. Local Testing
+### 4. Local Testing
 
 ```bash
 cp .env.example .env
@@ -45,7 +55,7 @@ Set via environment variables or GitHub secrets:
 |----------|---------|-------------|
 | `DISCOUNT_THRESHOLD` | 55 | Minimum discount percentage |
 | `STORE_IDS` | (4 stores) | Comma-separated store IDs |
-| `GENDER_ID` | 37609 | Category ID |
+| `CATEGORIES` | `men,women,kids` | Comma-separated categories: `men`, `women`, `kids` |
 
 ## How It Works
 

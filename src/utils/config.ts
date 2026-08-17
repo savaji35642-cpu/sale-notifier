@@ -1,5 +1,11 @@
 import { Config } from "../types/product";
 
+const CATEGORY_TO_GENDER_ID: Record<string, string> = {
+  men: "37609",
+  women: "37608",
+  kids: "37611",
+};
+
 export function loadConfig(): Config {
   const gmailUser = process.env.GMAIL_USER;
   const gmailAppPassword = process.env.GMAIL_APP_PASSWORD;
@@ -47,7 +53,30 @@ export function loadConfig(): Config {
     throw new Error("STORE_IDS must contain at least one store ID");
   }
 
-  const genderId = process.env.GENDER_ID || "37609";
+  const categoriesEnv = process.env.CATEGORIES || "men,women,kids";
+  const categories = categoriesEnv
+    .split(",")
+    .map((c) => c.trim().toLowerCase())
+    .filter((c) => c.length > 0);
+
+  if (categories.length === 0) {
+    throw new Error("CATEGORIES must contain at least one category");
+  }
+
+  const genderIds: string[] = [];
+  for (const category of categories) {
+    const genderId = CATEGORY_TO_GENDER_ID[category];
+    if (!genderId) {
+      throw new Error(
+        `Unknown category "${category}" in CATEGORIES — valid options are: ${Object.keys(
+          CATEGORY_TO_GENDER_ID,
+        ).join(", ")}`,
+      );
+    }
+    if (!genderIds.includes(genderId)) {
+      genderIds.push(genderId);
+    }
+  }
 
   return {
     discountThreshold,
@@ -55,6 +84,7 @@ export function loadConfig(): Config {
     gmailAppPassword,
     recipientEmail,
     storeIds,
-    genderId,
+    categories,
+    genderIds,
   };
 }

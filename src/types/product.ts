@@ -98,7 +98,8 @@ export interface Config {
   gmailAppPassword: string;
   recipientEmail: string;
   storeIds: string[];
-  genderId: string;
+  categories: string[];
+  genderIds: string[];
 }
 
 export const SIZE_CODE_TO_NAME: Record<string, string> = {

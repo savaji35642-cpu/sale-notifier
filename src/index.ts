@@ -16,14 +16,18 @@ async function main() {
     console.log("Configuration loaded successfully");
     console.log(`Discount threshold: ${config.discountThreshold}%`);
     console.log(`Store IDs: ${config.storeIds.join(", ")}`);
-    console.log(`Gender ID: ${config.genderId}`);
+    console.log(`Categories: ${config.categories.join(", ")}`);
 
-    console.log("\n--- Fetching Products from All Stores (in parallel) ---");
-    const fetchPromises = config.storeIds.map((storeId) =>
-      fetchAllProducts(storeId, config!.genderId).then((products) => ({
-        storeId,
-        products,
-      })),
+    console.log(
+      "\n--- Fetching Products from All Stores and Categories (in parallel) ---",
+    );
+    const fetchPromises = config.storeIds.flatMap((storeId) =>
+      config!.genderIds.map((genderId) =>
+        fetchAllProducts(storeId, genderId).then((products) => ({
+          storeId,
+          products,
+        })),
+      ),
     );
 
     const storeResults = await Promise.allSettled(fetchPromises);

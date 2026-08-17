@@ -43,7 +43,7 @@ function generateProductLink(
   return `${baseUrl}/${productId}/${priceGroup}?colorDisplayCode=${colorCode}&sizeDisplayCode=${sizeCode}`;
 }
 
-export function buildEmailHTML(
+function buildEmailHTML(
   products: FilteredProduct[],
   discountThreshold: number,
 ): string {
